@@ -13,7 +13,7 @@ import (
 type pgsqlDLModel struct {
 	Id         string `pg:"id,use_zero" json:"id"`
 	Queue      string `pg:"queue,use_zero" json:"queue"`
-	Data       []byte `pg:"data,use_zero" json:"data"`
+	Data       string `pg:"data,use_zero" json:"data"`
 	AllowRetry bool   `pg:"allow_retry,use_zero" json:"allow_retry"`
 	CreatedAt  int64  `pg:"created_at,use_zero" json:"created_at"`
 }
@@ -35,7 +35,7 @@ func (sds *pgsqlDLStorage) Fetch(queue string) (map[string][]byte, error) {
 	sql := fmt.Sprintf("SELECT * FROM %s WHERE queue = ? AND allow_retry = ?", sds.table)
 	_, err := sds.db.Query(&ms, sql, queue, true)
 	for _, m := range ms {
-		bs[m.Id] = m.Data
+		bs[m.Id] = []byte(m.Data)
 	}
 	return bs, err
 }

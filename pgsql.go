@@ -6,7 +6,6 @@ import (
 
 	"github.com/easy-bus/bus"
 	"github.com/go-pg/pg/v9"
-	"github.com/letsfire/utils"
 )
 
 // pgsqlDLModel
@@ -25,7 +24,7 @@ type pgsqlDLStorage struct {
 
 func (sds *pgsqlDLStorage) Store(queue string, data []byte) error {
 	sql := fmt.Sprintf("INSERT INTO %s (id, queue, data, allow_retry, created_at) VALUES (?, ?, ?, ?, ?)", sds.table)
-	_, err := sds.db.Exec(sql, utils.GenerateSeqId(), queue, string(data), false, time.Now().Unix())
+	_, err := sds.db.Exec(sql, generateSeqId(), queue, string(data), false, time.Now().Unix())
 	return err
 }
 

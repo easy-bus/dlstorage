@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/easy-bus/bus"
-	"github.com/go-pg/pg/v9"
+	"github.com/go-pg/pg/v10"
 )
 
 // pgsqlDLModel
